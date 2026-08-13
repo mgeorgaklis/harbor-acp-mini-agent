@@ -32,15 +32,15 @@ class FakeClient:
 
 
 def test_model_normalization() -> None:
-    assert _normalize_model("gemini-2.5-flash-lite") == ("gemini/gemini-2.5-flash-lite")
-    assert _api_model("gemini/gemini-2.5-flash-lite") == "gemini-2.5-flash-lite"
+    assert _normalize_model("gemini-2.5-flash") == "gemini/gemini-2.5-flash"
+    assert _api_model("gemini/gemini-2.5-flash") == "gemini-2.5-flash"
     with pytest.raises(ValueError, match="gemini"):
         _normalize_model("openai/gpt-5")
 
 
 @pytest.mark.asyncio
 async def test_agent_runs_shell_tool_and_returns_usage(monkeypatch) -> None:
-    monkeypatch.setenv("HARBOR_ACP_REQUESTED_MODEL", "gemini/gemini-2.5-flash-lite")
+    monkeypatch.setenv("HARBOR_ACP_REQUESTED_MODEL", "gemini/gemini-2.5-flash")
     agent = MiniAgent()
     client = FakeClient()
     agent.on_connect(client)  # type: ignore[arg-type]
@@ -98,13 +98,13 @@ async def test_agent_runs_shell_tool_and_returns_usage(monkeypatch) -> None:
 
 @pytest.mark.asyncio
 async def test_agent_advertises_and_updates_model(monkeypatch) -> None:
-    monkeypatch.setenv("HARBOR_ACP_REQUESTED_MODEL", "gemini/gemini-2.5-flash-lite")
+    monkeypatch.setenv("HARBOR_ACP_REQUESTED_MODEL", "gemini/gemini-2.5-flash")
     agent = MiniAgent()
     session = await agent.new_session(cwd="/workspace")
 
     option = session.config_options[0]
     assert option.category == "model"
-    assert option.current_value == "gemini/gemini-2.5-flash-lite"
+    assert option.current_value == "gemini/gemini-2.5-flash"
 
     response = await agent.set_config_option(
         "model", session.session_id, "gemini/gemini-2.5-flash"

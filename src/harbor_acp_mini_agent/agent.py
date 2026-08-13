@@ -45,7 +45,7 @@ from acp.schema import (
     Usage,
 )
 
-DEFAULT_MODEL = "gemini/gemini-2.5-flash-lite"
+DEFAULT_MODEL = "gemini/gemini-2.5-flash"
 MAX_STEPS = 20
 MAX_TOOL_OUTPUT_CHARS = 20_000
 _MODEL_PATTERN = re.compile(r"^(?:gemini/)?gemini-[A-Za-z0-9._-]+$")
@@ -170,7 +170,7 @@ class MiniAgent(Agent):
             agent_info=Implementation(
                 name="harbor-acp-mini-agent",
                 title="Harbor ACP Mini Agent",
-                version="0.1.0",
+                version="0.1.1",
             ),
         )
 
