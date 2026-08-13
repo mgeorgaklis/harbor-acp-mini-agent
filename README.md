@@ -24,7 +24,7 @@ The source-backed Harbor configuration is:
 ```yaml
 agents:
   - name: acp
-    model_name: gemini/gemini-2.5-flash
+    model_name: gemini/gemini-3.5-flash-lite
     env:
       GEMINI_API_KEY: ${GEMINI_API_KEY}
     kwargs:
